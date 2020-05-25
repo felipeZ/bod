@@ -1,4 +1,8 @@
+extern crate bod;
 extern crate clap;
+
+use bod::{perform_transaction, deserialize_json};
+
 use clap::{App, Arg, SubCommand};
 
 fn main() {
@@ -11,7 +15,7 @@ fn main() {
                 .short("u")
                 .long("url")
                 .value_name("URL")
-                .help("URL to use")
+                .help("URL to the endpoint")
                 .required(true)
                 .takes_value(true),
         )
@@ -38,5 +42,11 @@ fn main() {
         )
         .get_matches();
 
-    let url = matches.value_of("config").unwrap();
+    let url = matches.value_of("url").unwrap();
+    let example = "https://api.bva-auctions.com/api/rest/ext123/auction/48048/summary";
+    // match perform_transaction(example) {
+    match deserialize_json() {
+	Ok(()) => println!("42"),
+	Err(msg) => println!("message: {}", msg)
+    }
 }
